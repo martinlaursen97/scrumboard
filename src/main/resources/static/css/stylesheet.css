@@ -1,0 +1,126 @@
+.center {
+    margin: auto;
+    width: 50%;
+}
+
+input, button, submit { border:none; }
+
+#board-container {
+    width: auto;
+    height: auto;
+    min-height: 1000px;
+    display: flex;
+    margin: 5% 15% 10%;
+}
+
+#board-panel {
+    height: 100px;
+    background-color: green;
+}
+
+#board {
+    height: 100px;
+    background-color: black;
+}
+
+.task-container {
+    height: 150px;
+    width: 200px;
+    border: 1px solid black;
+    margin: 5% auto;
+    display: inline-block;
+}
+
+.task-header-container {
+    height: 20px;
+    border-bottom: 1px solid black;
+
+}
+
+.task-header-text {
+    display: inline-block;
+    font-weight: bold;
+    text-align: center;
+}
+
+.task-header-arrow {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+}
+
+.task-text {
+    height: 90px;
+    margin:3%;
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.task-score {
+    float: right;
+    margin-right: 7%;
+    height: 22px;
+}
+
+
+.task-header-arrow:hover {
+    background-color: #c5c5c5;
+}
+
+
+.pillar-container {
+    min-height: 1000px;
+    width: 100%;
+
+
+    float:right;
+    border: 1px solid black;
+
+
+}
+
+.pillar-name {
+    height: 50px;
+    background-color: whitesmoke;
+    text-align: center;
+    font-size: 30px;
+
+    font-family: Arial, serif;
+
+}
+
+.pillar-content {
+    height: 930px;
+    overflow: auto;
+    position:relative;
+    border-top: 1px solid black;
+    width: 100%;
+    text-align: center;
+
+
+}
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+
+    background-color: rgba(0,0,0,0.5);
+
+}
+
+
+
+#close-modal {
+    height: 100%;
+    width: 30px;
+    background-color: red;
+    outline: 1px solid black;
+}
