@@ -6,11 +6,12 @@ const modalName = document.querySelector("#modal-top-name")
 const modalText = document.querySelector(".modal-text-edit");
 
 const save = document.querySelector(".save");
-save.addEventListener("click", updateTask);
+let modalTask;
+save.addEventListener("click", updateTask(modalTask));
 
 const URL = "http://localhost:8080";
 
-let task;
+
 btnLoad.addEventListener("click", loadBoard);
 
 
@@ -44,20 +45,32 @@ async function loadBoard(boardId) {
             let tasks = pillars[i].tasks;
 
             for (let j = 0; j < tasks.length; j++) {
-                const taskDiv = document.createElement("button");
+                const taskDiv = document.createElement("div");
 
-                taskDiv.addEventListener("click", () => {
-                    overlay.style.display = "block";
-                    task = tasks[j];
-                    modalText.textContent = tasks[j].description;
-                });
+
 
                 const taskHeaderDiv = document.createElement("div");
                 const taskHeaderArrowDivL = document.createElement("button");
                 const taskHeaderTextDiv = document.createElement("div");
                 const taskHeaderArrowDivR = document.createElement("button");
+
+                taskHeaderArrowDivL.addEventListener("click", () => {
+                    shiftTaskLeft(tasks[j]);
+                });
+                taskHeaderArrowDivR.addEventListener("click", () => {
+                    alert(tasks[j].pillar);
+
+
+                });
+
                 const taskTextDiv = document.createElement("div");
                 const taskScoreDiv = document.createElement("div")
+
+                taskTextDiv.addEventListener("click", () => {
+                    overlay.style.display = "block";
+                    modalTask = tasks[j];
+                    modalText.textContent = tasks[j].description;
+                });
 
                 taskHeaderTextDiv.textContent = tasks[j].name;
                 taskHeaderArrowDivL.textContent = "<";
@@ -74,9 +87,10 @@ async function loadBoard(boardId) {
                 taskTextDiv.classList.add("task-text");
                 taskScoreDiv.classList.add("task-score");
 
-                taskHeaderDiv.appendChild(taskHeaderArrowDivL);
-                taskHeaderDiv.appendChild(taskHeaderTextDiv);
                 taskHeaderDiv.appendChild(taskHeaderArrowDivR);
+                taskHeaderDiv.appendChild(taskHeaderTextDiv);
+                taskHeaderDiv.appendChild(taskHeaderArrowDivL);
+
 
                 taskDiv.appendChild(taskHeaderDiv);
                 taskDiv.appendChild(taskTextDiv);
@@ -103,7 +117,7 @@ function fetchBoard(id) {
     return fetch(URL + "/board/" + id).then(res => res.json());
 }
 
-async function updateTask() {
+async function updateTask(task) {
 
     task.description = modalText.textContent;
 
@@ -115,8 +129,15 @@ async function updateTask() {
         body: JSON.stringify(task)
     }
 
-    await fetch(URL + "/task/update", fetchOptions);
+    await fetch(URL + "/task/update", fetchOptions).catch(err);
 
+}
+
+function shiftTaskLeft(task) {
+
+}
+
+function shiftTaskRight(task, current, next) {
 }
 
 function createPillar(pillar) {

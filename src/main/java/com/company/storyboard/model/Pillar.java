@@ -2,6 +2,7 @@ package com.company.storyboard.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+
 import javax.persistence.*;
 import java.util.Comparator;
 import java.util.List;
