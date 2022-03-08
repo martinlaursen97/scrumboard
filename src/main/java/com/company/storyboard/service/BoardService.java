@@ -18,11 +18,6 @@ public class BoardService {
 
     public Board getBoardById(long id) {
         Optional<Board> boardOptional = boardRepository.findById(id);
-        List<Task> t = boardOptional.get().getPillars().get(0).getTasks();
-
-        for (Task tt : t) {
-            System.out.println(tt.getPillar().getPillarId());
-        }
         return boardOptional.orElse(null);
     }
 }

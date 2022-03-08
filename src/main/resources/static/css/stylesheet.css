@@ -34,20 +34,17 @@ input, button, submit { border:none; }
 .task-header-container {
     height: 20px;
     border-bottom: 1px solid black;
+    overflow: hidden;
 
 }
+
 
 .task-header-text {
     display: inline-block;
     font-weight: bold;
     text-align: center;
-}
-
-.task-header-text {
-    display: inline-block;
-    font-weight: bold;
-    text-align: center;
-    width: 155px;
+    height: 20px;
+    width: 158px;
     float:right
 }
 
@@ -57,6 +54,7 @@ input, button, submit { border:none; }
     width: 20px;
     text-align: center;
     float: right;
+
 }
 
 .task-text {

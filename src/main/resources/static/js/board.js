@@ -1,3 +1,5 @@
+const URL = "http://localhost:8080";
+
 const btnLoad = document.querySelector(".btn-load");
 const boardContainer = document.getElementById("board-container");
 
@@ -7,9 +9,11 @@ const modalText = document.querySelector(".modal-text-edit");
 
 const save = document.querySelector(".save");
 let modalTask;
-save.addEventListener("click", updateTask(modalTask));
-
-const URL = "http://localhost:8080";
+save.addEventListener("click", () => {
+    modalTask.description = modalText.textContent;
+    updateTask(modalTask);
+    clear();
+});
 
 
 btnLoad.addEventListener("click", loadBoard);
@@ -18,11 +22,11 @@ btnLoad.addEventListener("click", loadBoard);
 let board;
 let loaded = false;
 
-async function loadBoard(boardId) {
+async function loadBoard() {
     let board = await fetchBoard(1);
     let pillars = board.pillars;
 
-    if (!loaded) {
+
         for (let i = 0; i < pillars.length; i++) {
             let name = pillars[i].name;
 
@@ -55,10 +59,10 @@ async function loadBoard(boardId) {
                 const taskHeaderArrowDivR = document.createElement("button");
 
                 taskHeaderArrowDivL.addEventListener("click", () => {
-                    shiftTaskLeft(tasks[j]);
+                    shiftTask(tasks[j], pillars[i-1].pillarId);
                 });
                 taskHeaderArrowDivR.addEventListener("click", () => {
-                    alert(tasks[j].pillar);
+                    shiftTask(tasks[j], pillars[i+1].pillarId);
 
 
                 });
@@ -104,8 +108,7 @@ async function loadBoard(boardId) {
         }
 
 
-        loaded = true;
-    }
+
 }
 
 document.querySelector(".close").addEventListener("click", () => {
@@ -119,8 +122,6 @@ function fetchBoard(id) {
 
 async function updateTask(task) {
 
-    task.description = modalText.textContent;
-
     const fetchOptions = {
         method: "PUT",
         headers: {
@@ -129,17 +130,28 @@ async function updateTask(task) {
         body: JSON.stringify(task)
     }
 
-    await fetch(URL + "/task/update", fetchOptions).catch(err);
+    await fetch(URL + "/task/update", fetchOptions).catch(err => console.log(err));
 
 }
 
-function shiftTaskLeft(task) {
-
+function shiftTask(task, next) {
+    task.pillarId = next;
+    updateTask(task);
+    clear();
 }
 
-function shiftTaskRight(task, current, next) {
+async function clear() {
+    document.getElementById("board-container").innerHTML = "";
+    loaded = false;
+    await sov(50);
+    await loadBoard();
+
 }
 
 function createPillar(pillar) {
 
+}
+
+function sov(ms) {
+    return new Promise(func => setTimeout(func, ms));
 }

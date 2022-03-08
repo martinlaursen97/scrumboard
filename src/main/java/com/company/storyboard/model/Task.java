@@ -16,20 +16,18 @@ public class Task {
 
     private String description;
 
-    @OneToOne
-    @JoinColumn(name = "pillar_id")
-    @JsonBackReference
-    private Pillar pillar;
+    @Column(name = "pillar_id")
+    private long pillarId;
 
     public Task() {
 
     }
 
-    public Task(long taskId, String name, String description, Pillar pillar) {
+    public Task(long taskId, String name, String description, long pillarId) {
         this.taskId = taskId;
         this.name = name;
         this.description = description;
-        this.pillar = pillar;
+        this.pillarId = pillarId;
     }
 
     public long getTaskId() {
@@ -56,11 +54,11 @@ public class Task {
         this.description = description;
     }
 
-    public Pillar getPillar() {
-        return pillar;
+    public long getPillarId() {
+        return pillarId;
     }
 
-    public void setPillar(Pillar pillar) {
-        this.pillar = pillar;
+    public void setPillarId(long pillarId) {
+        this.pillarId = pillarId;
     }
 }
